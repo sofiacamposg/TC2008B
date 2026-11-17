@@ -75,6 +75,10 @@ for (let i = 0; i < 3; i++) {
  * Specifies the objects that will be used, and the UI operations available.
  */
 class RotationScene extends Scene {
+    private settings = {
+        order: 'scale -> translation -> rotation',
+    };
+
     constructor(gl: WebGL2RenderingContext) {
         super(gl, vsGLSL, fsGLSL);
 
@@ -115,17 +119,31 @@ class RotationScene extends Scene {
         const pivotToCenter: Mat3 = M3.translation(v2_pivot_to_center);
         const centerToPivot: Mat3 = M3.translation(v2_center_to_pivot);
 
-        // Create a composite transform matrix
-        let modelTransforms: Mat3 = M3.identity();
-        // TODO: Multiply the matrices in the correct order to obtain the required results
-        // Escalar y colocar la cara.
-        modelTransforms = M3.multiply(scaleMatrixModel, modelTransforms);
-        modelTransforms = M3.multiply(translateMatrixModel, modelTransforms);
+        // para la rotación simepre con pivote
+        const rotationAroundPivot: Mat3 = M3.multiply(
+            centerToPivot,
+            M3.multiply(rotateMatrixModel, pivotToCenter)
+        );
 
-        // Girar alrededor del pivote.
-        modelTransforms = M3.multiply(pivotToCenter, modelTransforms);
-        modelTransforms = M3.multiply(rotateMatrixModel, modelTransforms);
-        modelTransforms = M3.multiply(centerToPivot, modelTransforms);
+        // Asociar  nombre con  matriz.
+        const matrices: Record<string, Mat3> = {
+            scale: scaleMatrixModel,
+            rotation: rotationAroundPivot,
+            translation: translateMatrixModel,
+        };
+
+        // Orden elegido en el menú.
+        const order = this.settings.order.split(' -> ');
+
+        // Operaciones en ese orden.
+        let modelTransforms: Mat3 = M3.identity();
+
+        for (const operation of order) {
+            modelTransforms = M3.multiply(
+                matrices[operation],
+                modelTransforms
+            );
+        }
 
         gl.useProgram(programInfo.program);
 
@@ -161,6 +179,13 @@ class RotationScene extends Scene {
         const pivot = this.getObject('pivot');
 
         const gui = new GUI();
+        gui.add(this.settings, 'order', [ //menu desplegable
+        'scale -> rotation -> translation',
+        'scale -> translation -> rotation',
+        'translation -> scale -> rotation',
+        'rotation -> translation -> scale',
+        'rotation -> scale -> translation',
+    ]).name('Orden');
 
         const modelFolder = gui.addFolder('Model');
 
