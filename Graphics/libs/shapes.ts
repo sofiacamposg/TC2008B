@@ -95,19 +95,85 @@ function smiley(radius: number) : twgl.Arrays {
     // HINT: You can use polar coordinates to define the positions of vertices,
     // using the radius and an angle. Then convert them to polar coordinates.
 
-    // Sample data for a single yellow triangle. Replace with your values.
-    positionData.push(0, 100);
-    positionData.push(-120, -100);
-    positionData.push(120, -100);
-    colorData.push(0.9, 0.8, 0, 1);
-    colorData.push(0.9, 0.8, 0, 1);
-    colorData.push(0.9, 0.8, 0, 1);
+    // Values for the 12 vertices of the head (cos and sin of 30 and 60 degrees)
+    const r = radius;
+    const s = radius * 0.5;
+    const h = radius * 0.866;
 
-    indexData.push(0, 2, 1);
+    // Head: a 12-sided polygon. Vertex 0 is the center
+    positionData.push(0, 0);    // 0 center
+    positionData.push(0, r);    // 1 top
+    positionData.push(-s, h);   // 2
+    positionData.push(-h, s);   // 3
+    positionData.push(-r, 0);   // 4 left
+    positionData.push(-h, -s);  // 5
+    positionData.push(-s, -h);  // 6
+    positionData.push(0, -r);   // 7 bottom
+    positionData.push(s, -h);   // 8
+    positionData.push(h, -s);   // 9
+    positionData.push(r, 0);    // 10 right
+    positionData.push(h, s);    // 11
+    positionData.push(s, h);    // 12
 
+    // Left eye (point down)
+    positionData.push(-0.6 * r, 0.2 * r);   // 13
+    positionData.push(-0.4 * r, 0.2 * r);   // 14
+    positionData.push(-0.5 * r, 0);         // 15
 
+    // Right eye (point down)
+    positionData.push(0.4 * r, 0.2 * r);    // 16
+    positionData.push(0.6 * r, 0.2 * r);    // 17
+    positionData.push(0.5 * r, 0);          // 18
 
+    // Mouth
+    positionData.push(-0.5 * r, -0.5 * r);  // 19
+    positionData.push(0.5 * r, -0.5 * r);   // 20
+    positionData.push(0, -0.65 * r);        // 21
 
+    // Yellow for the 13 vertices of the head
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+    colorData.push(1, 1, 0, 1);
+
+    // Black for the 9 vertices of the eyes and mouth
+    colorData.push(0, 0, 0, 1);
+    colorData.push(0, 0, 0, 1);
+    colorData.push(0, 0, 0, 1);
+    colorData.push(0, 0, 0, 1);
+    colorData.push(0, 0, 0, 1);
+    colorData.push(0, 0, 0, 1);
+    colorData.push(0, 0, 0, 1);
+    colorData.push(0, 0, 0, 1);
+    colorData.push(0, 0, 0, 1);
+
+    // Head: 12 triangles from the center to each pair of border vertices
+    indexData.push(0, 1, 2);
+    indexData.push(0, 2, 3);
+    indexData.push(0, 3, 4);
+    indexData.push(0, 4, 5);
+    indexData.push(0, 5, 6);
+    indexData.push(0, 6, 7);
+    indexData.push(0, 7, 8);
+    indexData.push(0, 8, 9);
+    indexData.push(0, 9, 10);
+    indexData.push(0, 10, 11);
+    indexData.push(0, 11, 12);
+    indexData.push(0, 12, 1);
+
+    // Eyes and mouth
+    indexData.push(13, 14, 15);
+    indexData.push(16, 17, 18);
+    indexData.push(19, 20, 21);
 
     // Build the final object with the arrays for positions, colors, and indices
     const arrays: twgl.Arrays = {
