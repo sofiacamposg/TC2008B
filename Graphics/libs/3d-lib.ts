@@ -28,7 +28,11 @@ export class V3 {
     // TODO: Complete the following methods
 
     static length(v: Vec3): number {
-        return 0;
+        return Math.sqrt(
+            v[X] * v[X] +
+            v[Y] * v[Y] +
+            v[Z] * v[Z]
+        );
     }
 
     static normalize(v: Vec3, dest?: Vec3): Vec3 {
