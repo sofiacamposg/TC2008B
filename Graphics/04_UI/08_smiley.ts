@@ -52,15 +52,21 @@ class RotationScene extends Scene {
 
         // Transform matrices for the model
         // TODO: Create the matrices necessary
+<<<<<<< HEAD
         const scaleMatrixModel: Mat3 = M3.scale(v2_scale);
         const translateMatrixModel: Mat3 = M3.translation(v2_trans);
         const rotateMatrixModel: Mat3 = M3.rotation(model.transforms.rr.z);
         const pivotToCenter: Mat3 = M3.translation(v2_pivot_to_center);
         const centerToPivot: Mat3 = M3.translation(v2_center_to_pivot);
+=======
+
+
+>>>>>>> 53f2cfab085f8797daee31e1394d107b5fc5e011
 
         // Create a composite transform matrix
         let modelTransforms: Mat3 = M3.identity();
         // TODO: Multiply the matrices in the correct order to obtain the required results
+<<<<<<< HEAD
         // Escalar y colocar la cara.
         modelTransforms = M3.multiply(scaleMatrixModel, modelTransforms);
         modelTransforms = M3.multiply(translateMatrixModel, modelTransforms);
@@ -69,6 +75,11 @@ class RotationScene extends Scene {
         modelTransforms = M3.multiply(pivotToCenter, modelTransforms);
         modelTransforms = M3.multiply(rotateMatrixModel, modelTransforms);
         modelTransforms = M3.multiply(centerToPivot, modelTransforms);
+=======
+
+
+
+>>>>>>> 53f2cfab085f8797daee31e1394d107b5fc5e011
 
         gl.useProgram(programInfo.program);
 
