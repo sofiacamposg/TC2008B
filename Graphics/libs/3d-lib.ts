@@ -25,17 +25,9 @@ export class V3 {
         return v;
     }
 
-    static length(v: Vec3): number {
-<<<<<<< HEAD
-        return Math.sqrt(
-            v[X] * v[X] +
-            v[Y] * v[Y] +
-            v[Z] * v[Z]
-        );
-=======
-        return Math.sqrt(v[X] * v[X] + v[Y] * v[Y] + v[Z] * v[Z]);
->>>>>>> 53f2cfab085f8797daee31e1394d107b5fc5e011
-    }
+static length(v: Vec3): number {
+    return Math.sqrt(v[X] * v[X] + v[Y] * v[Y] + v[Z] * v[Z]);
+}
 
     static normalize(v: Vec3, dest?: Vec3): Vec3 {
         dest = dest || new Float32Array(3);

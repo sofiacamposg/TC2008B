@@ -90,7 +90,6 @@ function smiley(radius: number) : twgl.Arrays {
 
     let sides = 18;
 
-<<<<<<< HEAD
     // Values for the 12 vertices of the head (cos and sin of 30 and 60 degrees)
     const r = radius;
     const s = radius * 0.5;
@@ -147,52 +146,6 @@ function smiley(radius: number) : twgl.Arrays {
     colorData.push(0, 0, 0, 1);
     colorData.push(0, 0, 0, 1);
     colorData.push(0, 0, 0, 1);
-=======
-    // The yellow circle
-    positionData.push(0);
-    positionData.push(0);
-    colorData.push(0.9, 0.8, 0, 1);
-
-    let angleStep = 2 * Math.PI / sides;
-    // Loop over the sides to create the rest of the vertices
-    for (let s=0; s<sides; s++) {
-        let angle = angleStep * s;
-        // Generate the coordinates of the vertex
-        let x = radius * Math.cos(angle);
-        let y = radius * Math.sin(angle);
-        positionData.push(x);
-        positionData.push(y);
-        // Make the vertices yellow
-        colorData.push(0.7, 0.6, 0, 1);
-        // Define the triangles, in counter clockwise order
-        indexData.push(0);
-        indexData.push(s + 1);
-        indexData.push(((s + 2) <= sides) ? (s + 2) : 1);
-    }
-
-    //// The eyes
-    let eyeSize = radius / 4;
-    let halfSize = eyeSize / 1.5;
-    let halfRadius = radius / 2;
-
-    // Left eye
-    positionData.push(-radius/2, halfSize/2);
-    positionData.push(-halfRadius - halfSize, eyeSize);
-    positionData.push(-halfRadius + halfSize, eyeSize);
-
-    colorData.push(0, 0, 0, 1);
-    colorData.push(0, 0, 0, 1);
-    colorData.push(0, 0, 0, 1);
-    colorData.push(0, 0, 0, 1);
-
-    indexData.push(sides + 1, sides + 2, sides + 3);
-
-    // Right eye
-    positionData.push(radius/2, halfSize/2);
-    positionData.push(halfRadius - halfSize, eyeSize);
-    positionData.push(halfRadius + halfSize, eyeSize);
-
->>>>>>> 53f2cfab085f8797daee31e1394d107b5fc5e011
     colorData.push(0, 0, 0, 1);
     colorData.push(0, 0, 0, 1);
     colorData.push(0, 0, 0, 1);
